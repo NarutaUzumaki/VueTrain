@@ -1,25 +1,29 @@
 <template>
     <div style="height: 800px; width: 100%">
-        <Carousel :per-page="1" :mouse-drag="false" :autoplay="true" :paginationEnabled="false" :autoplayTimeout=1000>
-            <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_3.jpg')})`}" style="width: 1920px; height: 800px">
-
-            </Slide>
-            <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_2.jpg')})`}" style="width: 1920px; height: 800px">
-
-            </Slide>
-            <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_1.jpg')})`}" style="width: 1920px; height: 800px">
-
-            </Slide>
-        </Carousel>
+        <div v-for="(result, index) in results" v-bind:key="index">
+            <p>{{index}}</p>
+            <p>${{result.USD}}</p>
+            <p>&#8364; {{result.EUR}}</p>
+            <P>{{result.RUB}}</P>
+        </div>
     </div>
 </template>
 
 <script>
-    import {Carousel, Slide} from 'vue-carousel'
+    //const url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR,RUB';
+    const pathAPI = 'C:/Program Files/OpenServ/OpenServer/domains/lar/laravel/app/Http/Controllers';
     export default {
-        components:{
-                Carousel,
-                Slide
+        data() {
+            return{
+              results:[]
+        }
+        },
+        mounted() {
+            const axios = require('axios');
+                axios.get(pathAPI).then(response => {
+                this.results = response.data
+            });
+            console.log(axios.get(pathAPI));
         }
     }
 </script>

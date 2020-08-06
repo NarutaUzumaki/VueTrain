@@ -16,11 +16,11 @@
                 <div class="product-gallery wrapper">
                     <div :style="{backgroundImage: `url(${require('@/assets/product/bag4.jpg')})`}" class="gallery-main"></div>
                     <div class="gallery-slider wrapper">
-                        <div class="slider-left-btn wrapper"></div>
+                        <div class="slider-left-btn wrapper">&#171;</div>
                         <div :style="{backgroundImage: `url(${require('@/assets/product/bag3.jpg')})`}" class="slider-img"></div>
                         <div :style="{backgroundImage: `url(${require('@/assets/product/bag2.jpg')})`}" class="slider-img"></div>
                         <div :style="{backgroundImage: `url(${require('@/assets/product/bag1.jpg')})`}" class="slider-img"></div>
-                        <div class="slider-right-btn wrapper">>></div>
+                        <div class="slider-right-btn wrapper">&#187;</div>
                     </div>
                 </div>
 

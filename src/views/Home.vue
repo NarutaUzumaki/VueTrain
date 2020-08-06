@@ -2,10 +2,10 @@
   <div>
     <section class="slider wrapper">
       <div class="slider-show">
-        <Carousel :per-page="1" :mouse-drag="false" :autoplay="true" :paginationEnabled="false" :autoplayTimeout=2000 :loop="true" style="height: 100%">
-          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_3.jpg')})`}" class="slides" ></Slide>
-          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_2.jpg')})`}" class="slides" ></Slide>
-          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_1.jpg')})`}" class="slides" ></Slide>
+        <Carousel :per-page="1" :mouse-drag="false" :autoplay="true" :paginationEnabled="false" :autoplayTimeout=3000 :loop="true" style="height: 100%;">
+          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_3.jpg')})`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
+          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_2.jpg')})`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
+          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_1.jpg')})`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
         </Carousel>
       </div>
       <div class="slider-content wrapper">
@@ -73,7 +73,7 @@
       <div class="first-cantainer wrapper">
         <div class="container-content wrapper">
           <div class="content wrapper">
-            <div class="categorie">FASHIOM</div>
+            <div class="categorie">FASHION</div>
             <div class="topic">SUMMER & AUTUMN</div>
             <div class="collection">WINTER COLLECTION</div>
           </div>
@@ -108,12 +108,12 @@
       </div>
 
       <div class="products-container wrapper">
-        <router-link to="/shop-products-name" class="product" v-for="item in items" v-bind:key="item.id">
+        <router-link to="/shop-products-name" class="product" v-for="item in items" :key="item.title">
           <div :style="{backgroundImage: `url(${item.bg})`}" class="product-img"></div>
           <div class="product-title">{{item.title}}</div>
           <div class="product-price">${{item.price}}</div>
           <div class="product-stars">
-            <i class="fa fa-star" v-for="stars in item.stars" v-bind:key="stars.id"></i>
+            <i class="fa fa-star" v-for="stars in item.stars" :key="stars"></i>
           </div>
         </router-link>
       </div>
