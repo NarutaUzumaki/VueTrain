@@ -10,8 +10,8 @@
 </template>
 
 <script>
-    //const url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR,RUB';
-    const pathAPI = 'C:/Program Files/OpenServ/OpenServer/domains/lar/laravel/app/Http/Controllers';
+    const url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR,RUB';
+    //const pathAPI = 'C:/Program Files/OpenServ/OpenServer/domains/lar/laravel/app/Http/Controllers';
     export default {
         data() {
             return{
@@ -20,10 +20,10 @@
         },
         mounted() {
             const axios = require('axios');
-                axios.get(pathAPI).then(response => {
+                axios.get(url).then(response => {
                 this.results = response.data
             });
-            console.log(axios.get(pathAPI));
+            console.log(axios.get(url));
         }
     }
 </script>

@@ -28,7 +28,7 @@
       </div>
 
       <div class="sellers-first wrapper" v-for="product in catalog" v-bind:key="product.id">
-        <div :style="{backgroundImage: `url(${product.bg})`}" class="first-img wrapper">
+        <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="first-img wrapper">
           <div class="first-icons wrapper">
             <div class="shopping wrapper"><i class="fa fa-shopping-cart fa-2x"></i></div>
             <div class="heart wrapper"><i class="fa fa-heart fa-2x"></i></div>
@@ -108,14 +108,14 @@
       </div>
 
       <div class="products-container wrapper">
-        <router-link to="/shop-products-name" class="product" v-for="item in items" :key="item.title">
-          <div :style="{backgroundImage: `url(${item.bg})`}" class="product-img"></div>
-          <div class="product-title">{{item.title}}</div>
-          <div class="product-price">${{item.price}}</div>
+        <div class="product" v-for="product in products" :key="product.title">
+          <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="product-img"></div>
+          <router-link :to="'/shop-products-name/' + product.id" class="product-title">{{product.title}}</router-link>
+          <div class="product-price">${{product.price}}</div>
           <div class="product-stars">
-            <i class="fa fa-star" v-for="stars in item.stars" :key="stars"></i>
+            <i class="fa fa-star" v-for="stars in product.stars" :key="stars"></i>
           </div>
-        </router-link>
+        </div>
       </div>
     </section>
 
@@ -142,38 +142,36 @@
 <script>
   import { Carousel, Slide } from 'vue-carousel'
 
-  import bg from '@/assets/product/bag4.jpg'
-
-  import Cruise from '@/assets/product/cruise.jpg'
-  import Crown from '@/assets/product/bag3.jpg'
-  import Joust from '@/assets/product/bag2.jpg'
-  import Voyage from '@/assets/product/bag1.jpg'
+  const productURL = 'http://larka/api/product';
+  const catalogURL = 'http://larka/api/catalog';
   export default {
     data() {
       return {
-        items: [
-          {title: "Cruise Dual Analog", price: "250.00", stars: 5, bg},
-          {title: "Crown summit Backpack", price: "220.00", stars: 3, bg},
-          {title: "Joust Duffle Bag", price: "190.00", stars: 5, bg},
-          {title: "Voyage Yoga Bag", price: "2000.00", stars: 4, bg},
-          {title: "Compete Truck Tote", price: "200.00", stars: 4, bg},
-          {title: "Sprite Yoga Companion Kit", price: "200.00", stars: 5, bg},
-          {title: "Strive Shoulder Pack", price: "200.00", stars: 3, bg},
-          {title: "Impulse Duffle", price: "270.00", stars: 4, bg},
-          {title: "Fusion Backpack", price: "250.00", stars: 3, bg},
-          {title: "Endeavor Daytrip", price: "250.00", stars: 4, bg},
-        ],
-        catalog:[
-          {title: "Cruise Dual analog", price: "250.00", stars: 5, bg: Cruise},
-          {title: "Crown summit Backpack", price: "220.00", stars: 3, bg: Crown},
-          {title: "Joust Duffle Bag", price: "190.00", stars: 5, bg: Joust},
-          {title: "Voyage Yoga Bag", price: "2000.00", stars: 4, bg: Voyage},
-        ]
+        catalog:[],
+        products:[]
       };
     },
     components:{
       Carousel,
       Slide
+    },
+    mounted(){
+      this.getCatalog();
+      this.getProducts();
+    },
+    methods: {
+      getCatalog() {
+        const axios = require('axios');
+        axios.get(catalogURL).then(response => {
+          this.catalog = response.data.catalog
+        });
+      },
+      getProducts(){
+        const axios = require('axios');
+        axios.get(productURL).then(response => {
+          this.products = response.data.products
+        })
+      }
     }
-  };
+  }
 </script>
