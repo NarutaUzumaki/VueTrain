@@ -126,14 +126,14 @@
 
                     <div ref="filter_btn" class="btn-open-filter" @click="$refs.filter.classList.toggle('show-filter')">FILTER</div>
                     <div class="grid-container wrapper" id="list">
-                        <router-link to="/shop-products-name" class="product" v-for="item in items" v-bind:key="item.id">
-                            <div :style="{backgroundImage: `url(${require('@/assets/product/bag4.jpg')})`}" class="product-img"></div>
-                            <div class="product-title">{{item.title}}</div>
-                            <div class="product-price">${{item.price}}</div>
+                        <div class="product" v-for="product in products" v-bind:key="product.id">
+                            <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="product-img"></div>
+                            <router-link :to="'/shop-products-name/' + product.id" class="product-title">{{product.title}}</router-link>
+                            <div class="product-price">${{product.price}}</div>
                             <div class="product-stars">
-                                <i class="fa fa-star" v-for="stars in item.stars" v-bind:key="stars.id"></i>
+                                <i class="fa fa-star" v-for="stars in product.stars" v-bind:key="stars"></i>
                             </div>
-                        </router-link>
+                        </div>
                     </div>
 
                     <div class="grid-footer wrapper">
@@ -151,18 +151,18 @@
     export default {
         data() {
             return {
-                items: [
-                    {title: "Cruise Dual Analog", price: "250.00", stars: 5},
-                    {title: "Crown summit Backpack", price: "220.00", stars: 3},
-                    {title: "Joust Duffle Bag", price: "190.00", stars: 5},
-                    {title: "Voyage Yoga Bag", price: "2000.00", stars: 4},
-                    {title: "Compete Truck Tote", price: "200.00", stars: 4},
-                    {title: "Sprite Yoga Companion Kit", price: "200.00", stars: 5},
-                    {title: "Strive Shoulder Pack", price: "200.00", stars: 3},
-                    {title: "Impulse Duffle", price: "270.00", stars: 4},
-                    {title: "Fusion Backpack", price: "250.00", stars: 3},
-                ]
+                products:[]
             };
+        },
+        mounted() {
+            this.getProducts();
+        },
+        methods:{
+            getProducts(){
+                this.axios.get('http://larka/api/product').then(response => {
+                    this.products = response.data.products
+                });
+            }
         }
     };
 </script>

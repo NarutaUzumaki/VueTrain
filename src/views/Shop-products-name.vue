@@ -13,8 +13,8 @@
 
         <section class="product-view-big wrapper">
             <div class="product wrapper">
-                <div class="product-gallery wrapper">
-                    <div :style="{backgroundImage: `url(${require('@/assets/product/bag4.jpg')})`}" class="gallery-main"></div>
+                <div class="product-gallery wrapper" v-for="product in product" v-bind:key="product.id">
+                    <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="gallery-main"></div>
                     <div class="gallery-slider wrapper">
                         <div class="slider-left-btn wrapper">&#171;</div>
                         <div :style="{backgroundImage: `url(${require('@/assets/product/bag3.jpg')})`}" class="slider-img"></div>
@@ -24,32 +24,40 @@
                     </div>
                 </div>
 
-                <div class="product-content">
-                    <div class="content-topic">This is Product name</div>
+                <div class="product-content" v-for="product in product" v-bind:key="product.id">
+                    <div class="content-topic">{{product.title}}</div>
                     <div class="content-price-star wrapper">
-                        <div class="price">$250.00</div>
-                        <div class="star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                        <div class="price">${{product.price}}</div>
+                        <div class="star">
+                            <i class="fa fa-star" v-for="stars in product.stars" v-bind:key="stars"></i>
+                        </div>
                     </div>
                     <div class="content-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
                     <div class="buy-container">
                         <div class="buy-select wrapper">
-                            <select>
-                                <option>Select size</option>
+                            <select v-model="size">
+                                <option selected disabled>Select size</option>
+                                <option>L</option>
+                                <option>XS</option>
+                                <option>XL</option>
                             </select>
-                            <select>
-                                <option>Select Color</option>
+                            <select v-model="color">
+                                <option selected disabled>Select Color</option>
+                                <option>Black</option>
+                                <option>Dark Blue</option>
+                                <option>Light Gray</option>
                             </select>
                         </div>
                         <div class="buy-it">
                             <div class="quantity wrapper">
                                 <input type="button" value="-" class="btn-minus"/>
-                                <input type="number" step="1" value="1" class="quantity-field"/>
+                                <input v-model="quantity" type="number" step="1" value="1" class="quantity-field"/>
                                 <input type="button" value="+" class="btn-plus"/>
                             </div>
                             <div class="buy-btns wrapper">
                                 <div class="btn-add wrapper">
                                     <div class="add"><i class="fa fa-shopping-cart"></i></div>
-                                    <div class="add">ADD TO CARD</div>
+                                    <div class="add" v-on:click="addToCart" style="cursor: pointer">ADD TO CART</div>
                                 </div>
                                 <div class="btn-like wrapper"><i class="fa fa-heart"></i></div>
                                 <div class="btn-refresh wrapper"><i class="fa fa-retweet"></i></div>
@@ -107,6 +115,7 @@
 
 <script>
     import bg from '@/assets/product/bag1.jpg'
+
     export default {
         data() {
             return {
@@ -115,8 +124,38 @@
                     {title: "Crown summit Backpack", price: "220.00", stars: 3, bg},
                     {title: "Joust Duffle Bag", price: "190.00", stars: 5, bg},
                     {title: "Voyage Yoga Bag", price: "2000.00", stars: 4, bg},
-                ]
+                ],
+                product: null,
+                size: '',
+                color: '',
+                quantity: 1
             };
+        },
+        methods: {
+            getProductById(){
+                this.axios.get('http://larka/api/product/' + this.$route.params.id).then(response => {
+                    this.product = response.data;
+                });
+            },
+            addToCart(){
+                let element = {
+                  title: this.product.product.title,
+                  price: this.product.product.price,
+                  stars: this.product.product.stars,
+                  img: this.product.product.img,
+                  size: this.size,
+                  color: this.color,
+                  quantity: this.quantity
+                };
+                this.axios.post('http://larka/api/cart/add', element).then(()=>{
+                    alert('Product(s) added');
+                }).catch((error) => {
+                    console.log(error)
+                });
+            }
+        },
+        mounted() {
+            this.getProductById();
         }
     };
 </script>

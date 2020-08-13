@@ -28,14 +28,14 @@
       </div>
 
       <div class="sellers-first wrapper" v-for="product in catalog" v-bind:key="product.id">
-        <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="first-img wrapper">
+        <div :style="{backgroundImage: `url${product.img}`}" class="first-img wrapper">
           <div class="first-icons wrapper">
             <div class="shopping wrapper"><i class="fa fa-shopping-cart fa-2x"></i></div>
             <div class="heart wrapper"><i class="fa fa-heart fa-2x"></i></div>
             <div class="refresh wrapper"><i class="fas fa-retweet fa-2x"></i></div>
           </div>
         </div>
-        <div class="first-title">{{product.title}}</div>
+        <router-link :to="'/shop-products-name/' + product.id" class="first-title">{{product.title}}</router-link>
         <div class="first-price">${{product.price}}</div>
         <div class="first-stars">
           <i class="fa fa-star" v-for="stars in product.stars" v-bind:key="stars.id"></i>
@@ -130,10 +130,10 @@
       </section>
 
       <section class="clients wrapper">
-        <div :style="{backgroundImage: `url(${require('@/assets/brand-logo-4a.png')})`}" class="client-first wrapper"></div>
-        <div :style="{backgroundImage: `url(${require('@/assets/brand-logo-1a.png')})`}" class="client-second wrapper"></div>
-        <div :style="{backgroundImage: `url(${require('@/assets/brand-logo-2a.png')})`}" class="client-third wrapper"></div>
-        <div :style="{backgroundImage: `url(${require('@/assets/brand-logo-3a.png')})`}" class="client-fourth wrapper"></div>
+        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-4a.png')})`}" class="client-first wrapper"></div>
+        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-1a.png')})`}" class="client-second wrapper"></div>
+        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-2a.png')})`}" class="client-third wrapper"></div>
+        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-3a.png')})`}" class="client-fourth wrapper"></div>
       </section>
     </section>
   </div>
@@ -142,8 +142,7 @@
 <script>
   import { Carousel, Slide } from 'vue-carousel'
 
-  const productURL = 'http://larka/api/product';
-  const catalogURL = 'http://larka/api/catalog';
+
   export default {
     data() {
       return {
@@ -161,16 +160,14 @@
     },
     methods: {
       getCatalog() {
-        const axios = require('axios');
-        axios.get(catalogURL).then(response => {
-          this.catalog = response.data.catalog
+        this.axios.get('http://larka/api/products/catalog').then(response => {
+          this.catalog = response.data.catalog;
         });
       },
       getProducts(){
-        const axios = require('axios');
-        axios.get(productURL).then(response => {
-          this.products = response.data.products
-        })
+        this.axios.get('http://larka/api/product').then(response => {
+          this.products = response.data.products;
+        });
       }
     }
   }

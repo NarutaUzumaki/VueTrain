@@ -25,7 +25,7 @@ Vue.use(VueRouter);
         component: () => import('../views/Shop-grid-full')
       },
       {
-        path: '/shop-products-name',
+        path: '/shop-products-name/:id',
         name: 'Shop-products-name',
         component: () => import('../views/Shop-products-name')
       },

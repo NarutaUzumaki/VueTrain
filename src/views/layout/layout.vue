@@ -27,7 +27,7 @@
                 <div ref="menu" class="down-menu wrapper">
                     <router-link to="/" class="wrapper">HOME</router-link>
                     <router-link to="/shop-grid-full" class="wrapper">CHECKOUT</router-link>
-                    <router-link to="/shop-products-name" class="wrapper">PRODUCT</router-link>
+                    <a class="wrapper">CONTACT</a>
                     <a class="wrapper">KIDS</a>
                     <a class="wrapper">JEWELLERRY</a>
                     <a class="wrapper">ACCESSORIES</a>
