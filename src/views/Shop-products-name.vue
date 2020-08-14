@@ -14,12 +14,12 @@
         <section class="product-view-big wrapper">
             <div class="product wrapper">
                 <div class="product-gallery wrapper" v-for="product in product" v-bind:key="product.id">
-                    <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="gallery-main"></div>
+                    <div :style="{backgroundImage: `url(http://larka/storage/product/${product.img})`}" class="gallery-main"></div>
                     <div class="gallery-slider wrapper">
                         <div class="slider-left-btn wrapper">&#171;</div>
-                        <div :style="{backgroundImage: `url(${require('@/assets/product/bag3.jpg')})`}" class="slider-img"></div>
-                        <div :style="{backgroundImage: `url(${require('@/assets/product/bag2.jpg')})`}" class="slider-img"></div>
-                        <div :style="{backgroundImage: `url(${require('@/assets/product/bag1.jpg')})`}" class="slider-img"></div>
+                        <div :style="{backgroundImage: `url(http://larka/storage/product/bag3.jpg)`}" class="slider-img"></div>
+                        <div :style="{backgroundImage: `url(http://larka/storage/product/bag2.jpg)`}" class="slider-img"></div>
+                        <div :style="{backgroundImage: `url(http://larka/storage/product/bag1.jpg)`}" class="slider-img"></div>
                         <div class="slider-right-btn wrapper">&#187;</div>
                     </div>
                 </div>
@@ -50,9 +50,9 @@
                         </div>
                         <div class="buy-it">
                             <div class="quantity wrapper">
-                                <input type="button" value="-" class="btn-minus"/>
+                                <input type="button" value="-" class="btn-minus" v-on:click="minus"/>
                                 <input v-model="quantity" type="number" step="1" value="1" class="quantity-field"/>
-                                <input type="button" value="+" class="btn-plus"/>
+                                <input type="button" value="+" class="btn-plus" v-on:click="quantity+=1"/>
                             </div>
                             <div class="buy-btns wrapper">
                                 <div class="btn-add wrapper">
@@ -99,8 +99,8 @@
                 </div>
 
                 <div class="related-main wrapper">
-                    <div class="product" v-for="item in items" v-bind:key="item.id">
-                        <div :style="{backgroundImage: `url(${item.bg})`}" class="product-img"></div>
+                    <div class="product" v-for="item in catalog" v-bind:key="item.id">
+                        <div :style="{backgroundImage: `url(http://larka/storage/product/${item.img})`}" class="product-img"></div>
                         <div class="product-title">{{item.title}}</div>
                         <div class="product-price">${{item.price}}</div>
                         <div class="product-stars">
@@ -114,17 +114,11 @@
 </template>
 
 <script>
-    import bg from '@/assets/product/bag1.jpg'
 
     export default {
         data() {
             return {
-                items: [
-                    {title: "Cruise Dual Analog", price: "250.00", stars: 5, bg},
-                    {title: "Crown summit Backpack", price: "220.00", stars: 3, bg},
-                    {title: "Joust Duffle Bag", price: "190.00", stars: 5, bg},
-                    {title: "Voyage Yoga Bag", price: "2000.00", stars: 4, bg},
-                ],
+                catalog: [],
                 product: null,
                 size: '',
                 color: '',
@@ -149,13 +143,22 @@
                 };
                 this.axios.post('http://larka/api/cart/add', element).then(()=>{
                     alert('Product(s) added');
-                }).catch((error) => {
-                    console.log(error)
+                })
+            },
+            getCatalog() {
+                this.axios.get('http://larka/api/products/catalog').then(response => {
+                    this.catalog = response.data.catalog;
                 });
+            },
+            minus(){
+                this.quantity-=1;
+                if (this.quantity < 1){
+                    this.quantity = 1;
+                }
             }
         },
         mounted() {
             this.getProductById();
-        }
+        },
     };
 </script>

@@ -3,9 +3,9 @@
     <section class="slider wrapper">
       <div class="slider-show">
         <Carousel :per-page="1" :mouse-drag="false" :autoplay="true" :paginationEnabled="false" :autoplayTimeout=3000 :loop="true" style="height: 100%;">
-          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_3.jpg')})`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
-          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_2.jpg')})`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
-          <Slide :style="{backgroundImage: `url(${require('@/assets/slider-img/krossovki_1.jpg')})`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
+          <Slide :style="{backgroundImage: `url(http://larka/storage/slider-img/krossovki_3.jpg)`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
+          <Slide :style="{backgroundImage: `url(http://larka/storage/slider-img/krossovki_2.jpg)`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
+          <Slide :style="{backgroundImage: `url(http://larka/storage/slider-img/krossovki_1.jpg)`}"  class="slides" style="width: 1920px; height: 800px"></Slide>
         </Carousel>
       </div>
       <div class="slider-content wrapper">
@@ -28,7 +28,7 @@
       </div>
 
       <div class="sellers-first wrapper" v-for="product in catalog" v-bind:key="product.id">
-        <div :style="{backgroundImage: `url${product.img}`}" class="first-img wrapper">
+        <div :style="{backgroundImage: `url(http://larka/storage/product/${product.img})`}" class="first-img wrapper">
           <div class="first-icons wrapper">
             <div class="shopping wrapper"><i class="fa fa-shopping-cart fa-2x"></i></div>
             <div class="heart wrapper"><i class="fa fa-heart fa-2x"></i></div>
@@ -108,8 +108,8 @@
       </div>
 
       <div class="products-container wrapper">
-        <div class="product" v-for="product in products" :key="product.title">
-          <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="product-img"></div>
+        <div class="product" v-for="product in products" :key="product.id">
+          <div :style="{backgroundImage: `url(http://larka/storage/product/${product.img})`}" class="product-img"></div>
           <router-link :to="'/shop-products-name/' + product.id" class="product-title">{{product.title}}</router-link>
           <div class="product-price">${{product.price}}</div>
           <div class="product-stars">
@@ -120,7 +120,7 @@
     </section>
 
     <section class="subscribe-clients wrapper">
-      <section class="subscribe wrapper" :style="{ backgroundImage: `url(${require('@/assets/bg.jpg')})`}">
+      <section class="subscribe wrapper" :style="{ backgroundImage: `url(http://larka/storage/bg.jpg)`}">
         <div class="subscripe-topic">Get Out Special Discount</div>
         <div class="subscribe-text">Donec eu tristique felis. Duis augue mi, auctor ut purus et, dignissim aliquet quam. register your email for news and special offers</div>
         <div class="subscribe-form wrapper">
@@ -130,10 +130,10 @@
       </section>
 
       <section class="clients wrapper">
-        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-4a.png')})`}" class="client-first wrapper"></div>
-        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-1a.png')})`}" class="client-second wrapper"></div>
-        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-2a.png')})`}" class="client-third wrapper"></div>
-        <div :style="{backgroundImage: `url(${require('@/assets/brand/brand-logo-3a.png')})`}" class="client-fourth wrapper"></div>
+        <div :style="{backgroundImage: `url(http://larka/storage/brand/brand-logo-4a.png)`}" class="client-first wrapper"></div>
+        <div :style="{backgroundImage: `url(http://larka/storage/brand/brand-logo-1a.png)`}" class="client-second wrapper"></div>
+        <div :style="{backgroundImage: `url(http://larka/storage/brand/brand-logo-2a.png)`}" class="client-third wrapper"></div>
+        <div :style="{backgroundImage: `url(http://larka/storage/brand/brand-logo-3a.png)`}" class="client-fourth wrapper"></div>
       </section>
     </section>
   </div>

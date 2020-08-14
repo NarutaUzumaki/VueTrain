@@ -24,7 +24,7 @@
           <tr v-for="product in products" v-bind:key="product.id">
             <td>
               <div class="product-info wrapper">
-                <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="img"></div>
+                <div :style="{backgroundImage: `url(http://larka/storage/product/${product.img})`}" class="img"></div>
                 <div class="title">{{product.title}}</div>
               </div>
             </td>
@@ -158,6 +158,9 @@
           this.subtotal += await product.price * product.quantity
         }
         this.total = this.subtotal-this.coupon
+        if (this.total < 0){
+          this.total = 0
+        }
       },
       addOrder(){
         let order = {
@@ -171,7 +174,8 @@
         this.axios.post('http://larka/api/order/add', order).then(() =>{
           alert('Your order are save');
         }).catch((error)=>{
-          console.log(error)
+          console.log(error);
+          this.$router.push('/test')
         })
       }
     },

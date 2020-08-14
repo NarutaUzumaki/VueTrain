@@ -75,7 +75,7 @@
                         <div class="rated-topic">TOP RATED</div>
                         <div class="rated-selector wrapper">
                             <div class="wrapper">
-                                <div :style="{backgroundImage: `url(${require('@/assets/product/bag2.jpg')})`}" class="img"></div>
+                                <div :style="{backgroundImage: `url(http://larka/storage/product/bag1.jpg)`}" class="img"></div>
                                 <div class="content wrapper">
                                     <div class="txt">Casual men wearing cool shoe</div>
                                     <div class="price">$250.00</div>
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="wrapper">
-                                <div :style="{backgroundImage: `url(${require('@/assets/product/bag2.jpg')})`}" class="img"></div>
+                                <div :style="{backgroundImage: `url(http://larka/storage/product/bag3.jpg)`}" class="img"></div>
                                 <div class="content wrapper">
                                     <div class="txt">Casual men wearing cool shoe</div>
                                     <div class="price">$250.00</div>
@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="wrapper">
-                                <div :style="{backgroundImage: `url(${require('@/assets/product/bag2.jpg')})`}" class="img"></div>
+                                <div :style="{backgroundImage: `url(http://larka/storage/product/bag2.jpg)`}" class="img"></div>
                                 <div class="content wrapper">
                                     <div class="txt">Casual men wearing cool shoe</div>
                                     <div class="price">$250.00</div>
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="grand-banner wrapper">
-                        <div :style="{backgroundImage: `url(${require('@/assets/relaxed.jpg')})`}" class="banner-container wrapper">
+                        <div :style="{backgroundImage: `url(http://larka/storage/relaxed.jpg)`}" class="banner-container wrapper">
                             <div class="banner-content wrapper">
                                 <div class="content-stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
                                 <div class="content-topic">UP TO 30% OFF</div>
@@ -127,7 +127,7 @@
                     <div ref="filter_btn" class="btn-open-filter" @click="$refs.filter.classList.toggle('show-filter')">FILTER</div>
                     <div class="grid-container wrapper" id="list">
                         <div class="product" v-for="product in products" v-bind:key="product.id">
-                            <div :style="{backgroundImage: `url(${require('@/assets/product/' + product.img)})`}" class="product-img"></div>
+                            <div :style="{backgroundImage: `url(http://larka/storage/product/${product.img})`}" class="product-img"></div>
                             <router-link :to="'/shop-products-name/' + product.id" class="product-title">{{product.title}}</router-link>
                             <div class="product-price">${{product.price}}</div>
                             <div class="product-stars">
